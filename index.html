@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>謝靜伊：護理紀錄快捷器</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  </div>
+  
+  
+  <style>
+
+.fixed-icon-right {
+  position: fixed;
+  top: 10px; /* 與頂部間距 */
+  right: 10px; /* 讓它固定在右上角 */
+  width: 40px; /* 與左上角 icon 相同大小 */
+  height: 40px;
+  z-index: 1000;
+}
+
+.fixed-icon-right img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.fixed-icon-right img:hover {
+  transform: scale(1.2); /* 滑鼠懸停時放大效果 */
+}
+
+
+     .popup {
+      display: none; 
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8); 
+      justify-content: center;
+      align-items: center;
+      z-index: 1000; 
+    }
+
+   
+    .popup-content {
+      position: relative;
+      width: 80%; 
+      max-width: 600px; 
+    }
+
+    .popup-content img {
+      width: 100%; 
+      border-radius: 10px; 
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    }
+    
+   
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 30px;
+      color: #fff;
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 5px 10px;
+      border-radius: 100%;
+    }
+    
+
+    .close-btn:hover {
+      background-color: rgba(255, 255, 255, 0.7);
+      color: #000;
+    }
+
+ 
+    .fixed-icon img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      cursor: pointer; 
+      transition: transform 0.3s ease; 
+    }
+
+    .fixed-icon img:hover {
+      transform: scale(1.2);
+    }
+    body {
+      font-family: 'Roboto', sans-serif; 
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(150deg, rgba(78, 106, 128, 0.8), #0e4096); 
+      color: #fff;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      max-width: 500px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+    }
+    .fixed-icon {
+      position: fixed; 
+      top: 10px; 
+      left: 10px;
+      width: 40px; 
+      height: 40px; 
+      z-index: 1000; 
+    }
+
+    .fixed-icon img {
+      width: 100%; 
+      height: 100%; 
+      object-fit: contain; 
+    }
+   
+    .popup {
+      display: none; 
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8); 
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .popup img {
+      max-width: 70%; 
+      max-height: 70%; 
+      border-radius: 20px; 
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); 
+    }
+
+    .popup .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 15px;
+      color: white;
+      cursor: pointer;
+    }
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+    }
+    .field {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 10px 0;
+    }
+    .field label {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #fff;
+      margin-right: 10px;
+      min-width: 80px;
+      text-align: left;
+    }
+    select, textarea {
+      flex-grow: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    select {
+      width: 100%; 
+      max-width: 350px; 
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.9);
+      color: #333;
+      box-shadow: 0 2px 5px rgba(147, 144, 156, 0.341);
+      overflow: hidden; 
+      text-overflow: ellipsis; 
+      white-space: nowrap; 
+      appearance: none; 
+      -webkit-appearance: none; 
+      -moz-appearance: none; 
+      background: rgba(255, 255, 255, 0.9) url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 6"><path fill="black" d="M0 0l5 6 5-6z"/></svg>') no-repeat right 15px center;
+   
+      background-size: 12px; 
+      border: none;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 1rem;
+      color: #333;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    textarea {
+      background: rgba(255, 255, 255, 0.9);
+      color: #333;
+      resize: vertical; /* 允許垂直調整大小 */
+      height: 150px;
+      width: 100%;
+      margin-top: 15px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      padding: 10px;
+      
+    }
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+    }
+    .button-container button {
+      width: 48%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      background: linear-gradient(45deg, #ff6f61, #ff9068);
+      color: #fff;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .button-container button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+    .button-container button:active {
+      transform: translateY(0);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      background: linear-gradient(45deg, #ff6f61, #ff9068);
+      color: #fff;
+      margin-top: 15px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+
+    <div class="fixed-icon-right" onclick="window.location.href='https://www.facebook.com/p/%E4%B8%AD%E5%B1%B1%E9%86%AB%E5%AD%B8%E5%A4%A7%E5%AD%B8%E9%99%84%E8%A8%AD%E9%86%AB%E9%99%A2%E8%AD%B7%E7%90%86%E9%83%A8-100057195410893/?locale=zh_TW/web.csh.org.tw/web/cshnursingweb/';">
+      <img src="xie_result_R/Chung_Shan_Medical_University_seal.svg.png" alt="右上角 Icon">
+    </div>
+  
+
+    <div class="fixed-icon" onclick="showPopup()">
+      <img src="xie_result_R/unity.png" alt="Icon">
+    </div>
+        <div id="popup" class="popup">
+          <span class="close-btn" onclick="closePopup()">&times;</span>
+          <img src="xie_result_R/corrinexie_qr.png" alt="Popup Image">
+      </div>
+  <div class="container">
+    <h1>護理紀錄快捷器</h1>
+    <h1>   <h1>
+
+
+          <!-- 第一個新增的下拉選單（主名稱） -->
+    <div class="field">
+      <label for="topSelect">選擇單位：</label>
+      <select id="topSelect">
+        <option value="">請選擇單位</option>
+        <option value="category1">N17 血液腫瘤科病房</option>
+        <option value="category2">N16 肝膽腸胃科病房</option>
+        <option value="category3">N15 胸腔腫瘤科病房</option>
+        <option value="category4">N14 胸腔內外科病房</option>
+        <option value="category5">護理系實習生區</option>
+      </select>
+    </div>
+
+          <!-- 第二個新增的下拉選單（主名稱） -->
+    <div class="field">
+      <label for="primarySelect">護理計劃：</label>
+      <select id="primarySelect">
+        <option value="">選擇護理計劃</option>
+        <option value="STAT">STAT Order</option>
+        <option value="potentialInfection">護理計劃：潛在危險性感染</option>
+        <option value="fallRisk">潛在危險性跌倒</option>
+        <option value="acutePain">急性疼痛問題</option>
+        <option value="feeling">健康焦慮問題</option>
+        <option value="oxygen">低效性呼吸型態</option>
+        <option value="skin">皮膚破損情形</option>
+        <option value="survey">檢查相關</option>
+        <option value="OP">手術相關</option>
+        <option value="other">其他</option>
+      </select>
+    </div>
+    
+
+    <div class="field">
+      <label for="secondarySelect">選擇紀錄項目：</label>
+      <select id="secondarySelect">
+        <option value="">請先選擇護理計劃</option>
+      </select>
+    </div>
+
+    
+    <textarea id="output">這是預設文字內容，可自行修改。</textarea>
+    <!--  <textarea id="output" readonly >這是文字內容，無法更改</textarea>-->
+
+
+    
+    <style>
+      
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+    }
+
+    .button-container button {
+      width: 48%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      background: linear-gradient(45deg, #ff6f61, #ff9068);
+      color: #fff;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    textarea {
+      flex-grow: 1; /* 允許 textarea 在彈性佈局中自動擴展填充可用空間 */
+      padding: 15px; /* 內邊距，讓文字與邊界有間距 */
+      border: none; /* 移除預設邊框 */
+      border-radius: 8px; /* 圓角邊框，讓框架變圓滑 */
+      font-size: 1.2rem; /* 設定字體大小為 1.2 倍的基準大小（通常約 19.2px） */
+      background: rgba(255, 255, 255, 0.9); /* 設定背景顏色為白色（90% 不透明度） */
+      color: #333; /* 設定文字顏色為深灰色 */
+      resize: none; /* 禁止使用者拖動改變 textarea 大小 */
+      width: 450px; /* 設定固定寬度 450px */
+      height: 200px; /* 設定固定高度 220px */
+      margin-top: 15px; /* 與上方元素保持 15px 的間距 */
+    }
+
+      #copy {
+        font-weight: bold; 
+        font-family: 'Arial Black', Arial, sans-serif; 
+  font-weight: 900; 
+      }
+      #generate {
+        font-weight: bold;
+        font-family: 'Arial Black', Arial, sans-serif; 
+  font-weight: 900;
+      }
+
+    </style>
+    
+   
+    <div class="button-container">
+      <button id="generate">OK</button>
+      <button id="copy">Copy</button>
+    </div>
+    <h3>參考紀錄，教學使用，務必檢視修改！</h3>
+    <h5>N14胸腔內外科病房，可愛的謝靜伊</h5>
+  </div>
+
+
+  <script>
+// 取得 DOM 元素（複製主要串接）
+const topSelect = document.getElementById('topSelect');
+const primarySelect = document.getElementById('primarySelect');
+const secondarySelect = document.getElementById('secondarySelect');
+const generateButton = document.getElementById('generate');
+const copyButton = document.getElementById('copy');
+const output = document.getElementById('output');
+
+
+
+// 初始化時鎖住護理計劃與紀錄項目
+primarySelect.disabled = true;
+secondarySelect.disabled = true;
+
+// 監聽單位選擇變更
+topSelect.addEventListener('change', () => {
+    const selectedCategory = topSelect.value;
+    
+    // 清空護理計劃與紀錄項目
+    primarySelect.innerHTML = '<option value="">選擇護理計劃</option>';
+    secondarySelect.innerHTML = '<option value="">請先選擇護理計劃</option>';
+    
+    // 預設禁用護理計劃與紀錄項目
+    primarySelect.disabled = true;
+    secondarySelect.disabled = true;
+
+    // 如果選擇了單位，則啟用護理計劃
+    if (selectedCategory && topOptionsMap[selectedCategory]) {
+        primarySelect.disabled = false;
+        topOptionsMap[selectedCategory].forEach(plan => {
+            const opt = document.createElement('option');
+            opt.value = plan.code;
+            opt.textContent = plan.label; // 顯示中文名稱
+            primarySelect.appendChild(opt);
+        });
+    }
+});
+
+// 監聽護理計劃選擇變更
+primarySelect.addEventListener('change', () => {
+    const selectedPlan = primarySelect.value;
+    
+    // 清空紀錄項目
+    secondarySelect.innerHTML = '<option value="">請選擇紀錄項目</option>';
+    secondarySelect.disabled = true;
+
+    // 如果選擇了護理計劃，則啟用紀錄項目
+    if (selectedPlan && optionsMap[selectedPlan]) {
+        secondarySelect.disabled = false;
+        optionsMap[selectedPlan].forEach(item => {
+            const opt = document.createElement('option');
+            opt.value = item.value;
+            opt.textContent = item.text;
+            secondarySelect.appendChild(opt);
+        });
+    }
+});
+
+
+
+  // 主要分類到護理計劃的映射，包含中文名稱:第一欄位對應選單修改區
+const topOptionsMap = {
+
+  category1: [ // N17單位項目
+    { code: 'STAT', label: 'STAT Order' },
+    { code: 'potentialInfection', label: '潛在性感染' },
+    { code: 'fallRisk', label: '潛在性跌倒' }
+  ],
+  category2: [ // N16單位項目
+    { code: 'acutePain', label: '急性疼痛' },
+    { code: 'feeling', label: '健康焦慮' },
+    { code: 'oxygen', label: '低效性呼吸' }
+  ],
+  category3: [ // N15單位項目
+    { code: 'skin', label: '皮膚破損' },
+    { code: 'survey', label: '檢查相關' },
+    { code: 'OP', label: '手術相關' },
+    { code: 'other', label: '其他' },
+  ],
+  category4: [ // N14單位項目
+    { code: 'STAT', label: 'STAT Order' },
+    { code: 'potentialInfection', label: '潛在性感染' },
+    { code: 'fallRisk', label: '潛在性跌倒' },
+    { code: 'acutePain', label: '急性疼痛' },
+    { code: 'feeling', label: '健康焦慮' },
+    { code: 'oxygen', label: '低效性呼吸' },
+    { code: 'skin', label: '皮膚破損' },
+    { code: 'survey', label: '檢查相關' },
+    { code: 'OP', label: '手術相關' },
+    { code: 'other', label: '其他' },
+  ],
+  category5: [ // 護理實習生項目
+    { code: 'acutePain', label: '急性疼痛' },
+    { code: 'feeling', label: '健康焦慮' },
+    { code: 'oxygen', label: '低效性呼吸' }
+  ],
+
+
+
+};
+
+  // 第三個下拉式選單項目更改  
+    const optionsMap = {
+      fallRisk: [
+        { value: 'unsteadyGait', text: '班內多臥床休息，紅色手圈配戴，雙側床欄使用，床輪固定良好，床旁陪病者照護，予常規探視。' },
+        { value: 'weakness', text: '班內四肢乏力疲倦虛弱，下床時需協助攙扶，使用輪椅輔助活動，臥床休息時可配合雙側床欄使用，床旁陪病者照護，暫無跌倒情形發生。' },
+        { value: 'move', text: '班內四肢肌肉力量為滿分，可自行下床如廁，生活自理，觀察步態平穩，予常規探視。' }
+      ],
+      potentialInfection: [
+        { value: 'warmSkin', text: '班內四肢皮膚溫暖，暫無發燒情形發生，續觀體溫變化。' },
+        { value: 'fever', text: '班內有發燒情形發生，現維持醫囑抗生素使用，並依醫囑指示給予退燒藥物，續觀體溫變化。' },
+      ],
+      acutePain: [
+        { value: 'throbbingPain', text: '班內病人表示疼痛情形尚可忍受，依常規醫囑止痛藥物使用，暫無不適主訴，續觀疼痛情形。' },
+        { value: 'sharpPain', text: '班內病人主訴疼痛指數約1-2分，依常規醫囑予止痛藥物可緩解，暫無疼痛不適主訴，續觀。' },
+      ],
+      oxygen: [
+        { value: 'Bipap', text: '班內未使用氧氣系統，呼吸平順，血氧穩定，暫無呼吸不適主訴，續觀呼吸型態。' },
+        { value: 'Nasal Cannula', text: '班內氧氣Nasal Cannula 3L/min使用，呼吸平順，血氧穩定，暫無呼吸不適主訴，續觀呼吸型態。' },
+        { value: 'Inspiron', text: '班內氧氣Inspiron Mask 28% 5L/min使用，呼吸平順，血氧穩定，暫無呼吸不適主訴，續觀呼吸型態。' },
+        { value: 'Simple', text: '班內氧氣Simple Mask 6L/min使用，呼吸平順，血氧穩定，暫無呼吸不適主訴，續觀呼吸型態。' },
+        { value: 'BIPAP', text: '班內呼吸器BIPAP FiO2:＿氧氣使用，呼吸平順，血氧穩定，視需要予協助抽痰，續觀血氧變化。' },
+        { value: 'HFNC', text: '班內呼吸器HFNC FiO2:＿氧氣使用，呼吸平順，血氧穩定，視需要予協助抽痰，續觀血氧變化。' },
+        { value: 'Venturi', text: '班內氧氣Venturi Mask 35% 8L/min使用，呼吸平順，血氧穩定，暫無呼吸不適主訴，續觀呼吸型態。' },
+        { value: 'T-PIECE', text: '班內氧氣Tr.接T-PIECE 28% 5L/min使用，呼吸平順，血氧穩定，視需要予協助抽痰，續觀呼吸型態。' }
+      ],
+        other: [
+        { value: '1.O', text: '經當科專科護理師＿於主治醫師＿的指示下，表示？' } ,
+        { value: 'O.1', text: '現主治醫師查房探視病人，予解釋病情後，家屬及病人可瞭解，同意後續治療方向。' },
+        { value: 'O.2', text: '現病人要求請假外出，經當科評估病人後准許請假，已告知請假四小時原則，或有不適務必立即返院，予協助填寫外出假單，續觀返室時間。' } ,
+        { value: 'O.3', text: '現依臨時醫囑使用針劑藥物，暫無藥物不良反應發生，續觀。' },
+        { value: 'O.4', text: '現依臨時醫囑使用口服藥物，予親視服藥後，無藥物不良反應發生，續觀。' } ,
+        { value: 'O.5', text: '病人施打化療藥物中，療程無不適主訴，滴注順暢，無化療外滲情形發生，續觀。' } ,
+        { value: 'O.6', text: '病人外出中，尚未返室，已電話聯繫通知，續觀返室時間，予紀錄。' } ,
+        { value: 'O.7', text: '查房病人不假外出，已電話聯繫通知，續觀返室時間，予紀錄。' } ,
+        { value: 'O.8', text: '現病人及家屬要求解釋病情，已告知當科，待主治醫師查房。' } ,
+        { value: 'O.9', text: '現危險值回覆通知，已告知當科，待醫囑指示。' } ,
+      ],
+        feeling: [
+        { value: 'OK', text: '班內病人情緒平穩，暫無相關疑問提出，續觀。' },
+        { value: 'anxiety', text: '班內病人情緒焦慮，予安撫心情後，病人可緩解焦慮感，續觀。' },
+        { value: 'questions', text: '班內病人暫無相關疑問提出，續觀。' },
+      ],
+        skin: [
+          { value: 'wound1', text: '班內暫無新皮膚傷口產生，陪病者可配合Q2H翻身更換姿勢預防壓傷發生，續觀。' },
+          { value: 'wound2', text: '班內壓傷傷口存，予常規消毒換藥後，紗布覆蓋完整，陪病者可協助Q2H翻身，續觀傷口變化。' },
+          { value: 'wound3', text: '班內再次加強衛教陪病者預防壓傷注意事項，務必每兩小時配合翻身更換姿勢，予翻身鐘使用，續觀壓傷傷口變化。' },
+      ],
+        survey: [
+          { value: 'survey1', text: '病人明日預行檢查，現告知病人及家屬午夜後維持禁食禁水，病人已知可配合，予紀錄。' },
+          { value: 'survey2', text: '由主治醫師解釋病情，因疾病需求預排立相關檢查，已簽署檢查同意書。' },
+          { value: 'survey3', text: '班內再次加強衛教陪病者預防壓傷注意事項，務必每兩小時配合翻身更換姿勢，予翻身鐘使用，續觀壓傷傷口變化。' },
+      ],  
+        OP: [
+          { value: 'OP1', text: '現手術室通知送刀，病人由傳送人員及家屬陪同下使用輪椅至手術室，生命徵象穩定，點滴滴注順暢，續觀返室時間。' },
+          { value: 'OP2', text: '病人明日預行手術，已告知病人及家屬午夜後維持禁食禁水，病人已知可配合，予紀錄。' },
+          { value: 'OP3', text: '現恢復室交班表示，病人此次採全麻行（填入位置）＿胸腔鏡手術、肋膜黏合術，失血量少，術中放置（填入位置）＿＿號直胸管固定於＿公分接雙腔引流瓶(返室後接EMS-15cmH2O使用)，傷口美容膠紗布覆蓋，放置＿號導尿管接尿袋，術中痛予Keto、Dynastat、Aloxi、Morphine、Fentanyl＿mcg，生命徵象穩定，術後追蹤CXR，續觀返室時間。' },
+          { value: 'OP4', text: '病人現由轉送護理師及家屬陪同推床返室，意識清楚，呼吸平順，氧氣鼻導管3L/min使用，依醫囑予三合一生理監測器使用，生命徵象穩定，現身上管路＿＿號直胸管固定＿公分接雙腔引流瓶採EMS-15cmH2O使用，＿號導尿管存，雙手靜脈針留置，已衛教家屬胸腔引流瓶及管路照護注意事項、紀錄輸出入量，並告知禁食禁水四小時至＿＿，家屬及病人已知可配合。' },
+          { value: 'OP5', text: '班內再次加強衛教陪病者預防壓傷注意事項，務必每兩小時配合翻身更換姿勢，予翻身鐘使用，續觀壓傷傷口變化。' },
+          { value: 'OP6', text: '班內再次加強衛教陪病者預防壓傷注意事項，務必每兩小時配合翻身更換姿勢，予翻身鐘使用，續觀壓傷傷口變化。' },
+          { value: 'OP7', text: '班內再次加強衛教陪病者預防壓傷注意事項，務必每兩小時配合翻身更換姿勢，予翻身鐘使用，續觀壓傷傷口變化。' },
+          { value: 'OP8', text: '手術留檢：冰凍切片：Adenocarcinoma、石蠟切片：、Pathology:。' },
+      ],  
+        STAT: [
+          { value: 'stat1', text: '經當科專科護理師＿於主治醫師＿的指示下，開立醫囑指示予？' },
+          { value: 'stat2', text: '經當科住院醫師＿表示，依醫囑予？' },
+          { value: 'stat3', text: '班內予協助抽痰，量顏色性質呈？' },
+          { value: 'stat4', text: '現呼吸治療師前往病室探視病人，經評估病人血氧變化後，予調整氧氣濃度為？' },
+          { value: 'stat5', text: '現病人追蹤CXR已返室，現協助抽晨血。' },
+          { value: 'stat6', text: '昨日Pig tail總引流量為＿ml、漏氣量＿ml、現小腔刻度在＿ml、大腔刻度在＿ml。' },
+          { value: 'stat7', text: '昨日胸管總引流量為＿ml、漏氣量＿ml、現小腔刻度在＿ml、大腔刻度在＿ml。' },
+          { value: 'stat8', text: '查房探視病人，臥床休息，呼吸平順，予常規紀錄。' },
+      ],  
+
+    };
+
+  
+    topSelect.addEventListener('change', () => {
+    const selectedCategory = topSelect.value;
+    primarySelect.innerHTML = '<option value="">選擇護理計劃</option>'; // 清空護理計劃
+    secondarySelect.innerHTML = '<option value="">請先選擇護理計劃</option>'; // 清空紀錄項目
+    primarySelect.disabled = true; // 預設禁用護理計劃
+    secondarySelect.disabled = true; // 預設禁用紀錄項目
+
+    if (selectedCategory && topOptionsMap[selectedCategory]) {
+        primarySelect.disabled = false; // 啟用護理計劃選單
+        topOptionsMap[selectedCategory].forEach(plan => {
+            const opt = document.createElement('option');
+            opt.value = plan.code;
+            opt.textContent = plan.label; // 顯示中文名稱
+            primarySelect.appendChild(opt);
+        });
+    }
+});
+
+// 當護理計劃選擇後，啟用紀錄項目
+primarySelect.addEventListener('change', () => {
+    const selectedPlan = primarySelect.value;
+    secondarySelect.innerHTML = '<option value="">請選擇紀錄項目</option>'; // 清空紀錄項目
+    secondarySelect.disabled = true; // 預設禁用紀錄項目
+
+    if (selectedPlan && optionsMap[selectedPlan]) {
+        secondarySelect.disabled = false; // 啟用紀錄項目選單
+        optionsMap[selectedPlan].forEach(item => {
+            const opt = document.createElement('option');
+            opt.value = item.value;
+            opt.textContent = item.text;
+            secondarySelect.appendChild(opt);
+        });
+    }
+});
+
+
+  topSelect.addEventListener('change', () => {
+  const selectedCategory = topSelect.value;
+  primarySelect.innerHTML = '<option value="">選擇護理計劃</option>'; // 重置護理計劃
+
+  if (topOptionsMap[selectedCategory]) {
+    topOptionsMap[selectedCategory].forEach(plan => {
+      const opt = document.createElement('option');
+      opt.value = plan.code; // 使用代碼作為選項值
+      opt.textContent = plan.label; // 顯示中文名稱
+      primarySelect.appendChild(opt);
+    });
+  }
+
+  // 清空紀錄項目
+  secondarySelect.innerHTML = '<option value="">請先選擇護理計劃</option>';
+});
+
+
+  // 當「紀錄項目」選擇後，更新輸出框(生成區選項自動產出刪除)
+secondarySelect.addEventListener('change', () => {
+    const selectedText = secondarySelect.options[secondarySelect.selectedIndex]?.text || '請選擇一筆紀錄項目！';
+    output.value = selectedText;
+  });
+  
+  
+ 
+    primarySelect.addEventListener('change', () => {
+      const selectedValue = primarySelect.value;
+      secondarySelect.innerHTML = '<option value="">請選擇紀錄項目</option>';
+
+      if (optionsMap[selectedValue]) {
+        optionsMap[selectedValue].forEach(option => {
+          const opt = document.createElement('option');
+          opt.value = option.value;
+          opt.textContent = option.text;
+          secondarySelect.appendChild(opt);
+        });
+      }
+    });
+
+   
+    generateButton.addEventListener('click', () => {
+      const secondary = secondarySelect.options[secondarySelect.selectedIndex].text;
+
+      if (secondary && secondary !== '請選擇紀錄項目') {
+        output.value = `${secondary}`;
+      } else {
+        output.value = '請選擇一筆紀錄項目！';
+      }
+    });
+
+
+    copyButton.addEventListener('click', () => {
+      if (output.value) {
+        navigator.clipboard.writeText(output.value).then(() => {
+          alert('已複製成功！');
+        });
+      }
+    });
+
+
+      function showPopup() {
+          document.getElementById('popup').style.display = 'flex'; // 顯示彈窗
+      }
+
+
+      function closePopup() {
+          document.getElementById('popup').style.display = 'none'; 
+      }
+
+
+      
+  </script>
+</body>
+</html>
