@@ -321,7 +321,7 @@
     </div>
 
     
-    <textarea id="output">這是預設文字內容，可自行修改。</textarea>
+    <textarea id="output" readonly>這是預設文字內容，可自行修改。</textarea>
     <!--  <textarea id="output" readonly >這是文字內容，無法更改</textarea>-->
 
 
@@ -614,28 +614,33 @@ primarySelect.addEventListener('change', () => {
   secondarySelect.innerHTML = '<option value="">請先選擇護理計劃</option>';
 });
 
-
-  // 當「紀錄項目」選擇後，更新輸出框(生成區選項自動產出刪除)
-secondarySelect.addEventListener('change', () => {
-    const selectedText = secondarySelect.options[secondarySelect.selectedIndex]?.text || '請選擇一筆紀錄項目！';
-    output.value = selectedText;
-  });
-  
   
  
-    primarySelect.addEventListener('change', () => {
-      const selectedValue = primarySelect.value;
-      secondarySelect.innerHTML = '<option value="">請選擇紀錄項目</option>';
+  primarySelect.addEventListener('change', () => {
+  const selectedValue = primarySelect.value;
+  secondarySelect.innerHTML = '<option value="">請選擇紀錄項目</option>';
 
-      if (optionsMap[selectedValue]) {
-        optionsMap[selectedValue].forEach(option => {
-          const opt = document.createElement('option');
-          opt.value = option.value;
-          opt.textContent = option.text;
-          secondarySelect.appendChild(opt);
-        });
-      }
+  if (optionsMap[selectedValue]) {
+    secondarySelect.disabled = false;
+
+    optionsMap[selectedValue].forEach(option => {
+      const opt = document.createElement('option');
+      opt.value = option.value;
+      opt.setAttribute("data-full-text", option.text); // 存完整內容
+
+      // 只在選單內顯示最多 30 個中文字，生成時不影響完整內容
+      const maxLength = 20;
+      opt.textContent = option.text.length > maxLength
+        ? option.text.substring(0, maxLength) + "..."
+        : option.text;
+
+      secondarySelect.appendChild(opt);
     });
+  } else {
+    secondarySelect.disabled = true;
+  }
+});
+
 
    
     generateButton.addEventListener('click', () => {
@@ -668,7 +673,16 @@ secondarySelect.addEventListener('change', () => {
       }
 
 
-      
+      generateButton.addEventListener('click', () => {
+  const selectedOption = secondarySelect.options[secondarySelect.selectedIndex];
+
+  if (selectedOption && selectedOption.value) {
+    output.value = selectedOption.getAttribute("data-full-text"); // 取出完整內容
+  } else {
+    output.value = '請選擇一筆紀錄項目！';
+  }
+});
+
   </script>
 </body>
 </html>
