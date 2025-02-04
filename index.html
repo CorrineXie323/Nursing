@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>謝靜伊：護理紀錄快捷器</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="unity.png" type="image/x-icon">
   </div>
   
   
@@ -291,7 +292,7 @@
       <select id="topSelect">
         <option value="">請先選擇單位</option>
         <option value="category1">N17 血液腫瘤科病房</option>
-        <option value="category2">N16 肝膽腸胃科病房</option>
+        <option value="categoryN16">N16 肝膽腸胃科病房</option>
         <option value="category3">N15 胸腔腫瘤科病房</option>
         <option value="category4">N14 胸腔內外科病房</option>
         <option value="category5">護理系實習生區</option>
@@ -457,7 +458,7 @@ const topOptionsMap = {
     { code: 'potentialInfection', label: '潛在性感染' },
     { code: 'fallRisk', label: '潛在性跌倒' }
   ],
-  category2: [ // N16單位項目
+  categoryN16: [ // N16單位項目
     { code: 'acutePain', label: '急性疼痛' },
     { code: 'feeling', label: '健康焦慮' },
     { code: 'oxygen', label: '低效性呼吸' }
@@ -504,7 +505,7 @@ const topOptionsMap = {
       ],
       acutePain: [
         { value: 'throbbingPain', text: '班內病人表示疼痛情形尚可忍受，依常規醫囑止痛藥物使用，暫無不適主訴，續觀疼痛情形。' },
-        { value: 'sharpPain', text: '班內病人主訴疼痛指數約1-2分，依常規醫囑予止痛藥物可緩解，暫無疼痛不適主訴，續觀。' },
+        { value: 'sharpPain', text: '班內病人主訴疼痛指數約（填數字）分，依常規醫囑予止痛藥物可緩解，暫無疼痛不適主訴，續觀。' },
       ],
       oxygen: [
         { value: 'Bipap', text: '班內未使用氧氣系統，呼吸平順，血氧穩定，暫無呼吸不適主訴，續觀呼吸型態。' },
@@ -520,8 +521,8 @@ const topOptionsMap = {
         { value: '1.O', text: '經當科專科護理師＿於主治醫師＿的指示下，表示？' } ,
         { value: 'O.1', text: '現主治醫師查房探視病人，予解釋病情後，家屬及病人可瞭解，同意後續治療方向。' },
         { value: 'O.2', text: '現病人要求請假外出，經當科評估病人後准許請假，已告知請假四小時原則，或有不適務必立即返院，予協助填寫外出假單，續觀返室時間。' } ,
-        { value: 'O.3', text: '現依臨時醫囑使用針劑藥物，暫無藥物不良反應發生，續觀。' },
-        { value: 'O.4', text: '現依臨時醫囑使用口服藥物，予親視服藥後，無藥物不良反應發生，續觀。' } ,
+        { value: 'O.3', text: '現依臨時醫囑使用針劑藥物（填藥物名稱），暫無藥物不良反應發生，續觀。' },
+        { value: 'O.4', text: '現依臨時醫囑使用口服藥物（填藥物名稱），予親視服藥後，無藥物不良反應發生，續觀。' } ,
         { value: 'O.5', text: '病人施打化療藥物中，療程無不適主訴，滴注順暢，無化療外滲情形發生，續觀。' } ,
         { value: 'O.6', text: '病人外出中，尚未返室，已電話聯繫通知，續觀返室時間，予紀錄。' } ,
         { value: 'O.7', text: '查房病人不假外出，已電話聯繫通知，續觀返室時間，予紀錄。' } ,
@@ -546,8 +547,8 @@ const topOptionsMap = {
         OP: [
           { value: 'OP1', text: '現手術室通知送刀，病人由傳送人員及家屬陪同下使用輪椅至手術室，生命徵象穩定，點滴滴注順暢，續觀返室時間。' },
           { value: 'OP2', text: '病人明日預行手術，已告知病人及家屬午夜後維持禁食禁水，病人已知可配合，予紀錄。' },
-          { value: 'OP3', text: '現恢復室交班表示，病人此次採全麻行（填入位置）＿胸腔鏡手術、肋膜黏合術，失血量少，術中放置（填入位置）＿＿號直胸管固定於＿公分接雙腔引流瓶(返室後接EMS-15cmH2O使用)，傷口美容膠紗布覆蓋，放置＿號導尿管接尿袋，術中痛予Keto、Dynastat、Aloxi、Morphine、Fentanyl＿mcg，生命徵象穩定，術後追蹤CXR，續觀返室時間。' },
-          { value: 'OP4', text: '病人現由轉送護理師及家屬陪同推床返室，意識清楚，呼吸平順，氧氣鼻導管3L/min使用，依醫囑予三合一生理監測器使用，生命徵象穩定，現身上管路＿＿號直胸管固定＿公分接雙腔引流瓶採EMS-15cmH2O使用，＿號導尿管存，雙手靜脈針留置，已衛教家屬胸腔引流瓶及管路照護注意事項、紀錄輸出入量，並告知禁食禁水四小時至＿＿，家屬及病人已知可配合。' },
+          { value: 'OP3', text: '(術後交班)現恢復室交班表示，病人此次採全麻行（填入位置）＿胸腔鏡手術、肋膜黏合術，失血量少，術中放置（填入位置）＿＿號直胸管固定於＿公分接雙腔引流瓶（返室後接EMS-15cmH2O使用），傷口美容膠紗布覆蓋，放置＿號導尿管接尿袋，術中痛予Keto、Dynastat、Aloxi、Morphine、Fentanyl＿mcg，生命徵象穩定，術後追蹤CXR，續觀返室時間。' },
+          { value: 'OP4', text: '(夏醫師版)病人現由轉送護理師及家屬陪同推床返室，意識清楚，呼吸平順，氧氣鼻導管3L/min使用，依醫囑予三合一生理監測器使用，生命徵象穩定，現身上管路＿＿號直胸管固定＿公分接雙腔引流瓶採EMS-15cmH2O使用，＿號導尿管存，雙手靜脈針留置，已衛教家屬胸腔引流瓶及管路照護注意事項、紀錄輸出入量，並告知禁食禁水四小時至＿＿，家屬及病人已知可配合。' },
           { value: 'OP5', text: '班內再次加強衛教陪病者預防壓傷注意事項，務必每兩小時配合翻身更換姿勢，予翻身鐘使用，續觀壓傷傷口變化。' },
           { value: 'OP6', text: '班內再次加強衛教陪病者預防壓傷注意事項，務必每兩小時配合翻身更換姿勢，予翻身鐘使用，續觀壓傷傷口變化。' },
           { value: 'OP7', text: '班內再次加強衛教陪病者預防壓傷注意事項，務必每兩小時配合翻身更換姿勢，予翻身鐘使用，續觀壓傷傷口變化。' },
@@ -567,6 +568,8 @@ const topOptionsMap = {
     };
 
   
+
+
     topSelect.addEventListener('change', () => {
     const selectedCategory = topSelect.value;
     primarySelect.innerHTML = '<option value="">選擇護理計劃</option>'; // 清空護理計劃
@@ -662,12 +665,18 @@ primarySelect.addEventListener('change', () => {
 
 
     copyButton.addEventListener('click', () => {
-      if (output.value) {
-        navigator.clipboard.writeText(output.value).then(() => {
-          alert('已複製成功！');
-        });
-      }
+  if (output.value) {
+    // 移除全形的 ＿ 以及半形的 ()
+      const filteredText = output.value.replace(/＿/g, '').replace(/\(.*?\)/g, '').trim();
+
+    // 複製處理後的文字
+    navigator.clipboard.writeText(filteredText).then(() => {
+      alert('已複製成功！');
     });
+  }
+});
+
+
 
 
       function showPopup() {
