@@ -501,21 +501,24 @@ const topOptionsMap = {
       ],
       potentialInfection: [
         { value: 'warmSkin', text: '班內四肢皮膚溫暖，暫無發燒情形發生，續觀體溫變化。' },
-        { value: 'fever', text: '班內有發燒情形發生，現維持醫囑抗生素使用，並依醫囑指示給予退燒藥物，續觀體溫變化。' },
+        { value: 'fever1', text: '班內觸摸四肢溫熱，有低燒情形發生，體溫約＿℃，現維持醫囑抗生素使用，並依醫囑指示給予退燒藥物，續觀體溫變化。' },
+        { value: 'fever2', text: '班內有發燒情形，體溫約維持在＿℃，依醫囑抗生素使用（Order），並依醫囑指示給予退燒藥物，續觀體溫變化。' },
+        { value: 'fever3', text: '班內體溫正常，身上引流管＿存，觀察皮膚週圍乾淨無滲液，持續觀察發燒徵象。' },
       ],
       acutePain: [
         { value: 'throbbingPain', text: '班內病人表示疼痛情形尚可忍受，依常規醫囑止痛藥物（Order）使用，暫無不適主訴，續觀疼痛情形。' },
         { value: 'sharpPain', text: '班內病人主訴疼痛指數約（填數字）分，依常規醫囑予止痛藥物可緩解，暫無疼痛不適主訴，續觀。' },
+        { value: 'Pain', text: '班內使用PCA Keep:＿ml/hr、Blous:＿ml，病人主訴疼痛指數表示尚可忍受，暫無不適感，續觀疼痛情形。' },
       ],
-      oxygen: [
+      Oxygen: [
         { value: 'Bipap', text: '班內未使用氧氣系統，呼吸平順，血氧穩定，暫無呼吸不適主訴，續觀呼吸型態。' },
         { value: 'Nasal Cannula', text: '班內氧氣Nasal Cannula 3L/min使用，呼吸平順，血氧穩定，暫無呼吸不適主訴，續觀呼吸型態。' },
         { value: 'Inspiron', text: '班內氧氣Inspiron Mask 28% 5L/min使用，呼吸平順，血氧穩定，暫無呼吸不適主訴，續觀呼吸型態。' },
         { value: 'Simple', text: '班內氧氣Simple Mask 6L/min使用，呼吸平順，血氧穩定，暫無呼吸不適主訴，續觀呼吸型態。' },
-        { value: 'BIPAP', text: '班內呼吸器BIPAP FiO2:＿氧氣使用，呼吸平順，血氧穩定，視需要予協助抽痰，續觀血氧變化。' },
+        { value: 'BIPAP', text: '班內呼吸器BIPAP ST Mode、FiO2:＿% 氧氣使用、PEEP:＿、PC:＿、Rate:＿、Pt:＿，呼吸平順，班內血氧穩定，視需要予協助抽痰，續觀血氧變化。' },
         { value: 'HFNC', text: '班內呼吸器HFNC FiO2:＿氧氣使用，呼吸平順，血氧穩定，視需要予協助抽痰，續觀血氧變化。' },
         { value: 'Venturi', text: '班內氧氣Venturi Mask 35% 8L/min使用，呼吸平順，血氧穩定，暫無呼吸不適主訴，續觀呼吸型態。' },
-        { value: 'T-PIECE', text: '班內氧氣Tr.接T-PIECE 28% 5L/min使用，呼吸平順，血氧穩定，視需要予協助抽痰，續觀呼吸型態。' }
+        { value: 'T-PIECE', text: '班內氧氣Tr.接T-PIECE 28% 5L/min使用，呼吸平順，血氧穩定，視需要予協助抽痰，續觀呼吸型態。' },
       ],
         other: [
         { value: '1.O', text: '經當科專科護理師＿於主治醫師＿的指示下，表示？' } ,
@@ -530,7 +533,8 @@ const topOptionsMap = {
         { value: 'O.9', text: '現危險值回覆通知，已告知當科，待醫囑指示。' } ,
       ],
         feeling: [
-        { value: 'OK', text: '班內病人情緒平穩，暫無相關疑問提出，續觀。' },
+        { value: 'OK1', text: '班內病人情緒平穩，暫無相關疑問提出，續觀。' },
+          { value: 'OK2', text: '班內病人及家屬可了解相關治療處置，尚無疑問提出，續觀。' },
         { value: 'anxiety', text: '班內病人情緒焦慮，予安撫心情後，病人可緩解焦慮感，續觀。' },
         { value: 'questions', text: '班內病人暫無相關疑問提出，續觀。' },
       ],
